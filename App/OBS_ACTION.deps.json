@@ -1493,7 +1493,8 @@
           "AutoMapper": "13.0.1",
           "Microsoft.Extensions.Configuration": "9.0.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.0",
-          "OBS_ACTION.CORE": "1.0.0"
+          "OBS_ACTION.CORE": "1.0.0",
+          "OBS_ACTION.INFRASTRUCTURE": "1.0.0"
         },
         "runtime": {
           "OBS_ACTION.SERVICE.dll": {
