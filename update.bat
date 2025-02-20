@@ -1,8 +1,21 @@
 @echo off
-cd /d %~dp0
-echo Kiểm tra Git...
+mode con: cols=80 lines=25
+cls
 
-:: Xác định thư mục chứa repo Git (chính là thư mục hiện tại)
+:: Hiển thị tiêu đề căn giữa
+echo.
+echo ======================== OBS ACTION APP MAKE BY MANGNEK ========================
+echo =========================== APP WILL CHECK UPDATE ==============================
+echo.
+echo  ###############################################################################
+echo  ###########################      MANGNEK APP        ###########################
+echo  ###############################################################################
+
+echo.
+echo CHECK UPDATE.....
+timeout /t 2 >nul
+
+:: Xác định thư mục chứa repo Git (thư mục hiện tại)
 set REPO_PATH=%~dp0
 
 :: Xác định thư mục chứa ứng dụng
@@ -13,7 +26,6 @@ set FLAG_FILE=%APP_PATH%update_flag.txt
 
 :: Nếu flag tồn tại, chỉ mở app mà không kiểm tra Git
 if exist "%FLAG_FILE%" (
-    echo Ứng dụng đã được cập nhật trước đó. Mở ứng dụng...
     del "%FLAG_FILE%"
     cd /d "%APP_PATH%"
     start OBS_ACTION.exe --skip-update
@@ -23,39 +35,32 @@ if exist "%FLAG_FILE%" (
 :: Kiểm tra Git có tồn tại không
 where git >nul 2>nul
 if %errorlevel% neq 0 (
-    echo Git không được cài đặt. Mở ứng dụng bình thường...
     cd /d "%APP_PATH%"
     start OBS_ACTION.exe
     exit
 )
 
-:: Kiểm tra xem thư mục repo có tồn tại không
+:: Kiểm tra repo Git có tồn tại không
 if not exist "%REPO_PATH%\.git" (
-    echo Không phải Git repository. Mở ứng dụng bình thường...
     cd /d "%APP_PATH%"
     start OBS_ACTION.exe
     exit
 )
 
-:: Fetch từ Git
+:: Thực hiện cập nhật nhưng không hiển thị ra màn hình
 cd /d "%REPO_PATH%"
-git fetch origin main
-
-:: Kiểm tra commit mới
+git fetch origin main >nul 2>nul
 for /f %%i in ('git rev-parse HEAD') do set LOCAL=%%i
 for /f %%i in ('git rev-parse origin/main') do set REMOTE=%%i
 
 if "%LOCAL%"=="%REMOTE%" (
-    echo Không có cập nhật mới. Mở ứng dụng...
+    echo Ứng dụng đã cập nhật mới nhất.
 ) else (
-    echo Có bản cập nhật mới! Đang cập nhật...
-    git pull origin main
+    git pull origin main >nul 2>nul
     echo updated > "%FLAG_FILE%"
-    echo Cập nhật xong.
 )
 
 :: Quay lại thư mục chứa ứng dụng và mở app
 cd /d "%APP_PATH%"
-echo Đang mở ứng dụng...
 start OBS_ACTION.exe --skip-update
 exit
