@@ -35,6 +35,8 @@ if exist "%FLAG_FILE%" (
 :: Kiểm tra Git có tồn tại không
 where git >nul 2>nul
 if %errorlevel% neq 0 (
+    echo Vui lòng cài đặt Git để có thể cập nhật các phiên bản mới từ nhà phát hành.
+    timeout /t 5 /nobreak >nul
     cd /d "%APP_PATH%"
     start OBS_ACTION.exe
     exit
