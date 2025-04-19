@@ -49,8 +49,13 @@ if not exist "%REPO_PATH%\.git" (
     exit
 )
 
-:: Thực hiện cập nhật nhưng không hiển thị ra màn hình
+:: Thực hiện cập nhật
 cd /d "%REPO_PATH%"
+
+:: Bỏ qua theo dõi appsettings.json để tránh xung đột khi pull
+git update-index --assume-unchanged App\appsettings.json
+
+:: Kiểm tra phiên bản
 git fetch origin main >nul 2>nul
 for /f %%i in ('git rev-parse HEAD') do set LOCAL=%%i
 for /f %%i in ('git rev-parse origin/main') do set REMOTE=%%i
