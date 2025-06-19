@@ -1546,7 +1546,7 @@
         },
         "runtime": {
           "OBS_ACTION.CORE.dll": {
-            "assemblyVersion": "1.0.0",
+            "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
@@ -1559,7 +1559,7 @@
         },
         "runtime": {
           "OBS_ACTION.INFRASTRUCTURE.dll": {
-            "assemblyVersion": "1.0.0",
+            "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
@@ -1574,7 +1574,7 @@
         },
         "runtime": {
           "OBS_ACTION.SERVICE.dll": {
-            "assemblyVersion": "1.0.0",
+            "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         }
